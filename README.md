@@ -6,6 +6,8 @@ This setup demonstrates a complete logging pipeline using Docker Compose with:
 - OpenSearch (search and analytics engine)
 - OpenSearch Dashboards (visualization UI)
 
+If you need help, please feel free to contact us [here](https://starclustersolutions.com/contact/).
+
 ## Prerequisites
 
 - Docker and Docker Compose installed
@@ -45,7 +47,7 @@ This will start:
 - OpenSearch on port 9200
 - OpenSearch Dashboards on port 5601
 - Fluent Bit on port 24224
-- Example app (internal only)
+- Example app on port 3000
 
 ### Step 3: Verify Services Are Running
 
@@ -60,12 +62,19 @@ curl http://localhost:9200/_cluster/health?pretty
 docker-compose logs -f fluent-bit
 ```
 
+Press Ctrl+C twice to exit logs view.
+
+
 ### Step 4: View Application Logs
 
 ```bash
 # View example app logs
 docker-compose logs -f example-app
 ```
+
+Press Ctrl+C twice to exit logs view.
+
+
 
 ## Using the System
 
@@ -93,13 +102,16 @@ The app also generates periodic logs every 5 seconds automatically.
 
 ### Create Index Pattern in OpenSearch Dashboards
 
-1. Click on "Hamburger menu" (☰) → Management → Stack Management
-2. Click "Index Patterns" under "Kibana"
-3. Click "Create index pattern"
+1. Click on "Hamburger menu" (☰) → Dashboard Management → Index Pattern.
+2. Click "Create index pattern"
 4. Enter index pattern: `app-logs-*`
 5. Click "Next step"
 6. Select time field: `@timestamp`
 7. Click "Create index pattern"
+
+This process tells Dashboards which indices to query and how to interpret their fields. It's just a UI configuration layer - it doesn't move or store data, just defines what to search and which field is the timestamp.
+
+OpenSearch node app has already indexed the logs.
 
 ### View Logs in Discover
 
@@ -110,13 +122,21 @@ The app also generates periodic logs every 5 seconds automatically.
    - `message`
    - `service`
    - `method` (for HTTP requests)
+4. Try searching for keywords like `debug`, `info` and `warn`. 
+
 
 ## How It Works
 
 ### Log Flow
 
 ```
-Example App (stdout) → Fluent Bit (collector) → OpenSearch (storage) → Dashboards (visualization)
+Example App (stdout)
+    ↓
+Fluent Bit (collector)
+    ↓
+OpenSearch (storage) 
+    ↓
+Dashboards (visualization)
 ```
 
 1. **Example App**: Writes JSON-formatted logs to stdout
@@ -145,19 +165,6 @@ Example App (stdout) → Fluent Bit (collector) → OpenSearch (storage) → Das
 
 ## Troubleshooting
 
-### OpenSearch won't start (vm.max_map_count error)
-
-On Linux, you may need to increase vm.max_map_count:
-
-```bash
-sudo sysctl -w vm.max_map_count=262144
-```
-
-To make it permanent, add to `/etc/sysctl.conf`:
-```
-vm.max_map_count=262144
-```
-
 ### No logs appearing in OpenSearch
 
 1. Check Fluent Bit is receiving logs:
@@ -178,6 +185,21 @@ vm.max_map_count=262144
 ### Dashboards not loading
 
 Wait 1-2 minutes after starting services. OpenSearch Dashboards needs time to initialize.
+
+### OpenSearch won't start (vm.max_map_count error)
+
+On Linux, you may need to increase vm.max_map_count:
+
+```bash
+sudo sysctl -w vm.max_map_count=262144
+```
+
+To make it permanent, add to `/etc/sysctl.conf`:
+```
+vm.max_map_count=262144
+```
+
+
 
 ## Stopping and Cleaning Up
 
