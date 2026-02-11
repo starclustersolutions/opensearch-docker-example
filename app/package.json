@@ -1,0 +1,12 @@
+{
+  "name": "example-logging-app",
+  "version": "1.0.0",
+  "description": "Example app for demonstrating log collection",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
