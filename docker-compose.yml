@@ -9,6 +9,7 @@ services:
     volumes:
       - ./app:/app
     command: node index.js
+    # Push logs to Fluentd (Fluent Bit compatible)
     logging:
       driver: "fluentd"
       options:

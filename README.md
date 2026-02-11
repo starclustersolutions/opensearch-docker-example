@@ -75,10 +75,7 @@ docker-compose logs -f example-app
 Press Ctrl+C twice to exit logs view.
 
 
-
-## Using the System
-
-### Generate Different Log Types
+### Optional Step: Generate Different Log Types
 
 The example app exposes several endpoints:
 
@@ -93,7 +90,12 @@ curl http://localhost:3000/error
 curl http://localhost:3000/warn
 ```
 
+You can use these endpoints to create more errors or warnings to test out OpenSearch.
+
+
 The app also generates periodic logs every 5 seconds automatically.
+
+## Using the System
 
 ### Access OpenSearch Dashboards
 
@@ -124,6 +126,15 @@ OpenSearch node app has already indexed the logs.
    - `method` (for HTTP requests)
 4. Try searching for keywords like `debug`, `info` and `warn`. 
 
+## Stopping and Cleaning Up
+
+```bash
+# Stop all services
+docker-compose down
+
+# Stop and remove volumes (deletes all logs)
+docker-compose down -v
+```
 
 ## How It Works
 
@@ -199,17 +210,6 @@ To make it permanent, add to `/etc/sysctl.conf`:
 vm.max_map_count=262144
 ```
 
-
-
-## Stopping and Cleaning Up
-
-```bash
-# Stop all services
-docker-compose down
-
-# Stop and remove volumes (deletes all logs)
-docker-compose down -v
-```
 
 ## Production Considerations
 
