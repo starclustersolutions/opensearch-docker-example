@@ -1,4 +1,4 @@
-# Logging Pipeline with Fluent Bit and OpenSearch
+# OpenSearch Log Ingestion Quick Start (with Docker & Fluentbit)
 
 This setup demonstrates a complete logging pipeline using Docker Compose with:
 - Example Node.js application (generates logs to stdout)
@@ -7,6 +7,12 @@ This setup demonstrates a complete logging pipeline using Docker Compose with:
 - OpenSearch Dashboards (visualization UI)
 
 If you need help, please feel free to contact us [here](https://starclustersolutions.com/contact/).
+
+It helps you to:
+
+1. Quick Setup Opensearch so that you can explore the tool in a mini-production like environment
+2. Understand the architecture required to ingest logs into Opensearch from an app container
+
 
 ## Prerequisites
 
@@ -174,6 +180,21 @@ Dashboards (visualization)
 - Single-node setup
 - Stores data in Docker volume
 
+
+## Production Considerations
+
+For production use, you should:
+
+1. **Enable OpenSearch security** (TLS, authentication)
+2. **Use proper resource limits** in docker-compose.yml
+3. **Configure log retention policies** (Index Lifecycle Management)
+4. **Set up multi-node OpenSearch cluster** for high availability
+5. **Use secrets management** for credentials
+6. **Configure proper log rotation** in Fluent Bit
+7. **Add monitoring** for the logging pipeline itself
+8. **Secure Fluent Bit** with TLS when forwarding logs
+
+
 ## Troubleshooting
 
 ### No logs appearing in OpenSearch
@@ -210,19 +231,6 @@ To make it permanent, add to `/etc/sysctl.conf`:
 vm.max_map_count=262144
 ```
 
-
-## Production Considerations
-
-For production use, you should:
-
-1. **Enable OpenSearch security** (TLS, authentication)
-2. **Use proper resource limits** in docker-compose.yml
-3. **Configure log retention policies** (Index Lifecycle Management)
-4. **Set up multi-node OpenSearch cluster** for high availability
-5. **Use secrets management** for credentials
-6. **Configure proper log rotation** in Fluent Bit
-7. **Add monitoring** for the logging pipeline itself
-8. **Secure Fluent Bit** with TLS when forwarding logs
 
 ## Customization
 
