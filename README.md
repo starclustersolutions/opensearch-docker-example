@@ -281,3 +281,4 @@ curl -X PUT "http://localhost:9200/_index_template/app-logs-template" \
 - [Fluent Bit Documentation](https://docs.fluentbit.io/)
 - [OpenSearch Documentation](https://opensearch.org/docs/)
 - [Docker Compose Documentation](https://docs.docker.com/compose/)
+- [TechOps Guy's Blog](https://techopsguy.com/blog)
