@@ -13,6 +13,8 @@ It helps you to:
 1. Quick Setup Opensearch so that you can explore the tool in a mini-production like environment
 2. Understand the architecture required to ingest logs into Opensearch from an app container
 
+For a more visual walkthrough, you can read the article: [Quick Start Guide to OpenSearch Log Ingestion](https://starclustersolutions.com/blog/2026-02-opensearch-log-ingestion-quick-start-guide/).
+
 
 ## Prerequisites
 
